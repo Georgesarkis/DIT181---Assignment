@@ -170,7 +170,7 @@ class Array2 {
   		int sum = 0;
   		int leftBorderSum = 0;
   		for(int i = mid; i>= l; i--){
-  			sum+ = a[i];
+  			sum += a[i];
   			if(sum>leftBorderSum)
   				leftBorderSum= sum;
   		}
