@@ -153,11 +153,38 @@ class Array2 {
   
 
 
-  // Return the maximum sum of all contiguous subarrays of the array.
-  // This is should be done my Majed Dalain 
-  public int maxInterval() {
-    return 0;
+ /*
+  This is Done my Majed Dalain 
+  Return the maximum sum of all contiguous subarrays of the array.
+  */
+  public static int maxInterval(int a[], int l, int h) {
+
+  	
+  	    if(l == h) return a[l]; // base case where the array has only one element. 
+
+  		int mid = (l + h) / 2;
+
+  		int leftMaxSum = maxInterval(a,l,mid); // recursive call for the left side or the array.
+  		int rihgtMaxSum = maxInterval(a,mid+1,h); // recursice call for the right side of tha array. 
+
+  		int sum = 0;
+  		int leftBorderSum = 0;
+  		for(int i = mid; i>= l; i--){
+  			sum+ = a[i];
+  			if(sum>leftBorderSum)
+  				leftBorderSum= sum;
+  		}
+  		int sum1 = 0;
+  		int rightBorderSum= 0;
+  		for (int i = mid+1; i<=h;i++){
+  			sum1+= a[i];
+  			if(sum1 > rightBorderSum)
+  				rightBorderSum = sum1;
+  		}
+
+  		return Math.max(Math.max(leftMaxSum,rihgtMaxSum),leftBorderSum+rightBorderSum);
   }
+  
 
   // Return the index of the lowest element of the array,
   // assuming that the array contains a cyclic shift of
