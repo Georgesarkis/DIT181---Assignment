@@ -154,6 +154,7 @@ class Array2 {
 
 
   // Return the maximum sum of all contiguous subarrays of the array.
+  // This is should be done my Majed Dalain 
   public int maxInterval() {
     return 0;
   }
