@@ -157,7 +157,11 @@ class Array2 {
   This is Done my Majed Dalain 
   Return the maximum sum of all contiguous subarrays of the array.
   */
-  public static int maxInterval(int a[], int l, int h) {
+  public int maxInterval() {
+
+  	     int l = arr[0];
+
+  	     int h = arr[arr.length-1];
 
   	
   	    if(l == h) return a[l]; // base case where the array has only one element. 
