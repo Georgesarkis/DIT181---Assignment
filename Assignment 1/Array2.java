@@ -189,8 +189,33 @@ class Array2 {
   // Return the index of the lowest element of the array,
   // assuming that the array contains a cyclic shift of
   // a non-decreasing sequence.
-  public int findSplice(int[] arr, int lo ,  int hi) {
-	return 0;
+  public int findSplice() {
+
+  	     int l = arr[0];
+  	     int h = arr[arr.length-1];
+
+  	    if (h < l)  return 0;
+ 
+        // If there is only one element left
+        if (h == l) return l;
+ 
+        // Find mid
+        int mid = l + (h - l)/2; /*(low + high)/2;*/
+ 
+        // Check if element (mid+1) is minimum element. Consider
+        // the cases like {3, 4, 5, 1, 2}
+        if (mid < h && arr[mid+1] < arr[mid])
+            return mid+1;
+ 
+        // Check if mid itself is minimum element
+        if (mid > l && arr[mid] < arr[mid - 1])
+            return mid;
+ 
+        // Decide whether we need to go to left half or right half
+        if (arr[h] > arr[mid])
+            return findSplice(arr, l, mid-1);
+        return findSplice(arr, mid+1, h);
+        
   }
 
   // Return the median value of an array.
