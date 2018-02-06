@@ -63,7 +63,7 @@ class Array2 {
   // Remove the element of index i from the array.
   // This method may change the order of the other
   // elements of the array.
-  public void removeFast(int i) {// in this way we made the last element the element that we want to remove and complexity of this is O(1)
+  public void remove2(int i) {// in this way we made the last element the element that we want to remove and complexity of this is O(1)
 	  arr[i] = arr[size-1];
 	  this.size = size-1;
   }
