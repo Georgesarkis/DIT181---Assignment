@@ -159,9 +159,9 @@ class Array2 {
   */
   public int maxInterval() {
 
-  	     int l = arr[0];
+  	     int l = 0;
 
-  	     int h = arr[arr.length-1];
+  	     int h = array.length-1;
 
   	
   	    if(l == h) return a[l]; // base case where the array has only one element. 
@@ -195,8 +195,8 @@ class Array2 {
   // a non-decreasing sequence.
   public int findSplice() {
 
-  	     int l = arr[0];
-  	     int h = arr[arr.length-1];
+  	     int l = 0;
+  	     int h = arr.length-1;
 
   	    if (h < l)  return 0;
  
