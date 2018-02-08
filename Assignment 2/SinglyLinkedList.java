@@ -1,3 +1,5 @@
+package assignment2;
+
 
 class SinglyLinkedList<Item> {
   private int size = 0;
@@ -38,9 +40,25 @@ class SinglyLinkedList<Item> {
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+	  int position = 0;
+	  Node current = new Node();
+	  current = first;
+	  Node new_node = new Node();
+	  new_node.el = x;
+		  
+		  while(position != n && current.next != null) {
+			  position++;
+			  current.next = current;
+		  }
+		  if(current.next == null) {
+			  current.next = new_node;
+			  new_node.next = null;
+		  }
+		  else {
+			  new_node.next = current.next;
+			  current.next = new_node;
+		  }
+//    throw new IllegalArgumentException("Index ouf of bounds");
   }
 
   // Remove the element at index n from the list
