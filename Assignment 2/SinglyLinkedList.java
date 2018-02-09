@@ -1,11 +1,8 @@
 package assignment2;
 
-import assignment2.SinglyLinkedList.Node;
-
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
-
 
   private static class Node<Item> {
     public Node<Item> next;
@@ -13,8 +10,6 @@ class SinglyLinkedList<Item> {
   }
 
   public static class Iterator<Item>{
-//	  Node<Item> new_node = new Node<Item>();
-//	  new_node = first;
 	public Item next(Node<Item> current) {
     	return current.next.el;
     }
