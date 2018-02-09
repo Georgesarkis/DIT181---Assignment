@@ -1,5 +1,6 @@
 package assignment2;
 
+import assignment2.SinglyLinkedList.Node;
 
 class SinglyLinkedList<Item> {
   private int size = 0;
@@ -11,20 +12,41 @@ class SinglyLinkedList<Item> {
     public Item el;
   }
 
-  public static class Iterator<Item> {
-    public Item next() {
-      throw new UnsupportedOperationException();
+  public static class Iterator<Item>{
+//	  Node<Item> new_node = new Node<Item>();
+//	  new_node = first;
+	public Item next(Node<Item> current) {
+    	return current.next.el;
     }
-    public boolean hasNext() {
-      throw new UnsupportedOperationException();
+    public boolean hasNext(Node<Item> current) {
+    	if(current.next != null) {
+    		return true;
+    	}
+    	return false;
     }
-    public void insert(Item e) {
-      throw new UnsupportedOperationException();
+    public Node<Item> insert(Item e,Node<Item> first) {
+    	Node<Item> new_node = new Node<Item>();
+    	Node<Item> current = new Node<Item>();
+    	current = first;
+    	new_node.el = e;
+    	new_node.next = null;
+    	while(current.next != null) {
+    		current = current.next;
+    	}
+    	current.next = new_node;
+    	return first;
     }
-    public void remove() {
-      throw new UnsupportedOperationException();
+    public Node<Item> remove(Node<Item> first) {
+    	Node<Item> current = new Node<Item>();
+    	current = first;
+    	while(current.next.next !=null) {
+    		current = current.next;
+    	}
+    	current.next = null;
+    	return first;
     }
   }
+  
   public SinglyLinkedList() {
   }
 
@@ -40,26 +62,34 @@ class SinglyLinkedList<Item> {
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-	  int position = 0;
-	  Node current = new Node();
-	  current = first;
-	  Node new_node = new Node();
+	  Node<Item> current = first;
+	  Node<Item> new_node = new Node<Item>();
 	  new_node.el = x;
-		  
-		  while(position != n && current.next != null) {
-			  position++;
-			  current.next = current;
+	  if(n < 0 || n > size) {
+		throw new IllegalArgumentException("Index ouf of bounds");
+	  }
+	  else if(n == 0) {
+		  new_node.next = first;
+		  first = new_node;
+		  size++;
+	  }
+	  else if(n == size) {
+		 for(int i = 0; i <= n; i++) {
+			 current = current.next;
+		 }
+		 current.next = new_node;
+		 new_node.next = null;
+		 size++;
+	  }
+	  else {
+		  for(int i = 0 ; i < n ; i++) {
+			  current = current.next;
 		  }
-		  if(current.next == null) {
-			  current.next = new_node;
-			  new_node.next = null;
-		  }
-		  else {
-			  new_node.next = current.next;
-			  current.next = new_node;
-		  }
-//    throw new IllegalArgumentException("Index ouf of bounds");
-  }
+		  new_node.next = current.next;
+		  current.next = new_node;
+		  size++;
+	  }
+  }   
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
