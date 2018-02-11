@@ -16,23 +16,68 @@ class QueueArray<Item> {
   }
 
   public int size() {
-    return size;
-  }
+    return this.size;
 
+  }
+/*
+insert a new item to the queue, if the queue is full then we double the size.
+*/
   public void enqueue(Item x) {
-    throw new UnsupportedOperationException();
+    if(size == arr.length)
+      resize(arr.length * 2);
+    back = increment (back);
+    arr[back] = x;
+    size++;
   }
-
+/*
+This method deques the first element in the queue, and checks the size of the queue, if it is smaller than 25 of the array size,
+it divides it to smaller size in order to save space. 
+*/
   public void dequeue() {
-  //  if (size == 0)
-  //    throw new IllegalArgumentException("Queue size must be non-negative");
-    throw new UnsupportedOperationException();
+    if (isEmpty()){
+      throw new IllegalArgumentException("Queue size must be non-negative");
+    }
+    if(size < arr.length/4){
+      resize(arr.length/2);
+    }
+    size--;
+    front = increment(front);
+    
+  }
+/*
+Retruns the first element in the queue. 
+*/
+  public Item getFront() {
+    if (isEmpty())
+      throw new IllegalArgumentException("Queue size must be non-negative");
+    return arr[front];
   }
 
-  public Item getFront() {
-  //  if (size == 0)
-  //    throw new IllegalArgumentException("Queue size must be non-negative");
-    throw new UnsupportedOperationException();
+  public boolean isEmpty (){
+    return size == 0;
+  }
+/*
+This method wraparound the front or back when either of them reaches the end of the array, or moves them 1 step forward. 
+*/
+  private int increment (int x){
+    if(++x == arr.length)
+      x = 0;
+    return x; 
+  }
+
+  private void resize (int capacity){
+    Item [] newArray;
+    newArray = (Item []) new Object [capacity];
+
+    // copy elements that are in the queue, starting from the font. 
+    for(int i = 0; i < size ; front = increment(front)){
+      newArray[i] = arr[front];
+    } 
+
+    arr = newArray ;
+    front = 0;
+    back = size -1;
+
   }
 
   // Represent the contents of the list as a String
@@ -58,6 +103,12 @@ class QueueArray<Item> {
     System.out.println(q.getFront());
     q.dequeue();
     q.enqueue(2);
+    System.out.println(q.getFront());
+    q.dequeue();
+    System.out.println(q.getFront());
+    q.enqueue(9);
+    q.enqueue(10);
+    q.dequeue();
     System.out.println(q.getFront());
   }
 }
