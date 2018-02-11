@@ -1,8 +1,12 @@
 
+
 class QueueArray<Item> {
   private final int initial_size = 4;
   private int size = 0;
   private Item[] arr;
+  private int front;
+  private int back = -1;
+
 
   // We need this pragma to avoid warnings triggerred by
   // the unsafe cast to Item[].
