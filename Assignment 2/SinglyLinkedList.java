@@ -3,9 +3,11 @@ package assignment2;
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
+  private Node<Item> last;
 
   private static class Node<Item> {
     public Node<Item> next;
+    public Node<Item> prev;
     public Item el;
   }
 
@@ -49,10 +51,35 @@ class SinglyLinkedList<Item> {
     return size;
   }
 
+
   public Item get(int n) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+  return getNode(n).el;
+  }
+
+/*
+this method returns the element stored in specific index, 
+returns exeption if when it comes out of boundry of the list. 
+the complexity of this methos in worst case is O(n)
+*/
+  private Node<Item> getNode (int n, int low, int high){
+    Node<Item> N;
+    if(n<llow || n>high)
+      throw new IllegalArgumentException("Index ouf of bounds");
+    if(n < size()/2){
+        p = first.next;
+        for(int i=0;i<n;i++)
+          p = p.next;
+    }
+    else {
+      p = last;
+      for(int i=size(); i>n; i--)
+        p = p.prev;
+    }
+  return p; 
+  } 
+
+  private Node<Item> getNode(int n){
+    return getNode(n,0,size()-1);
   }
 
   // Insert element x at index n in the list
