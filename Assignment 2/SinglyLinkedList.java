@@ -56,19 +56,14 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
 
-     Node<Item> current = head;
-
     if (n >= size || n < 0){
         throw new IndexOutOfBoundsException("Index ouf of bounds");
       }
-
-    if(n< size() && n > 0){
+      
+      Node<Item> current = first;
       for(int i = 0; i< n; i++)
         current = current.next;
-    }
-
-    if(n==0)
-      current = head;
+    
   
   return current.el;
   
