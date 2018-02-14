@@ -12,37 +12,55 @@ class SinglyLinkedList<Item> {
   }
 
   public static class Iterator<Item>{
-	  private Node p;
-	  p = first;
-	public Item next(Node<Item> current) {
-    	return current.next.el;
-    }
-    public boolean hasNext(Node<Item> current) {
-    	if(current.next != null) {
-    		return true;
+	SinglyLinkedList list;
+	Node<Item> current = list.first;
+	boolean hasNext;
+	public void  itorator(SinglyLinkedList<Item> c){
+		  list = c; 
+	  }
+	public Item next() {
+    	if(current.next == null) {
+    		hasNext = false;
+    		return null;
     	}
-    	return false;
-    }
-    public Node<Item> insert(Item e,Node<Item> first) {
-    	Node<Item> new_node = new Node<Item>();
-    	Node<Item> current = new Node<Item>();
-    	current = first;
-    	new_node.el = e;
-    	new_node.next = null;
-    	while(current.next != null) {
-    		current = current.next;
+    	else {
+	    	current = current.next;
+	    	return current.el;
     	}
-    	current.next = new_node;
-    	return first;
+    	
     }
-    public Node<Item> remove(Node<Item> first) {
-    	Node<Item> current = new Node<Item>();
-    	current = first;
-    	while(current.next.next !=null) {
-    		current = current.next;
+    public boolean hasNext() {
+    	return current !=null && current.next != null;
+    }
+    public void insert(Item e) {
+    	Node<Item> newNode = new Node<Item>();
+    	newNode.el = e;
+    	if(current == null) {
+    		list.first = newNode;
+    		current = newNode;
     	}
-    	current.next = null;
-    	return first;
+    	else if(hasNext) {
+			newNode.next = current.next;
+			current.next = newNode;
+    	}
+    	else {
+    		current.next = newNode;
+    		newNode.next = null;
+    	}
+    	list.size++;
+    }
+    
+    public void remove() {
+    	if(current == list.first) {
+    		list.first = current.next;
+    	}
+    	else {
+	    	Node toRemove = list.first;
+	    	while(toRemove.next != current) {
+	    		toRemove = toRemove.next;
+	    	}
+	    	toRemove.next = current.next;
+    	}
     }
   }
   
@@ -82,24 +100,25 @@ class SinglyLinkedList<Item> {
 	  else if(n == 0) {
 		  new_node.next = first;
 		  first = new_node;
-		  size++;
 	  }
 	  else if(n == size) {
-		 for(int i = 0; i <= n; i++) {
-			 current = current.next;
+		 while(current.next != null) {
+		 current = current.next;
 		 }
 		 current.next = new_node;
 		 new_node.next = null;
-		 size++;
 	  }
+		 
 	  else {
-		  for(int i = 0 ; i < n ; i++) {
+		  int position = 0;
+		  while(current.next != null && position != n) {
 			  current = current.next;
+			  position++;
 		  }
 		  new_node.next = current.next;
-		  current.next = new_node;
-		  size++;
+		  current.next = new_node;  
 	  }
+	  size++;
   }   
 
   // Remove the element at index n from the list
@@ -141,5 +160,15 @@ class SinglyLinkedList<Item> {
   public static void main (String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
     System.out.println(l.size());
+//    l.insertAt(0, 1);
+//    l.insertAt(1, 2);
+//    l.insertAt(2, 3);
+//    System.out.println(l.first.el);
+//    System.out.println(l.first.next.el);
+//    System.out.println(l.first.next.next.el);
+//    System.out.print(l.size());
+//    Iterator newIterator = new Iterator();
+//    newIterator.itorator(l);
+//    newIterator.remove();
   }
 }
