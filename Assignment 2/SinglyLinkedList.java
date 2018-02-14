@@ -12,6 +12,8 @@ class SinglyLinkedList<Item> {
   }
 
   public static class Iterator<Item>{
+	  private Node p;
+	  p = first;
 	public Item next(Node<Item> current) {
     	return current.next.el;
     }
