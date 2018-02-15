@@ -5,6 +5,11 @@ class RPN {
   private Stack<Integer> operands = new Stack<Integer>();
 
   public RPN() {
+	  
+//	  operands.push(operands.pop() + operands.pop());
+//	  operands.push(operands.pop() * operands.pop());
+//	  operands.push(operands.pop() - operands.pop());
+//	  operands.push(operands.pop() / operands.pop());
   }
 
 
@@ -25,6 +30,12 @@ class RPN {
           break;
         }
         System.out.println("Got a string: " + s);
+        if(s.equals("+")) {
+        	operands.push(operands.pop() + operands.pop());
+        }
+        else if(s.equals("-")) {
+        	operands.push(operands.pop() - operands.pop());
+        }
       }
       System.out.print(prompt);
     }

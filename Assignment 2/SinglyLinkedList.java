@@ -1,4 +1,4 @@
-package assignment2;
+import SinglyLinkedList.Node;
 
 class SinglyLinkedList<Item> {
   private int size = 0;
@@ -107,8 +107,19 @@ class SinglyLinkedList<Item> {
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
+	  Node<Item> tmp = first;
+	  if (n < 0 || n > size) {
+		  throw new IllegalArgumentException("Index ouf of bounds");
+    }
+	  else if (n == 0) {
+		  first = tmp.next;
+		  return;
+    }
+	  for(int i = 0; tmp != null && i < n - 1; i++)
+		  tmp = tmp.next;
+     
+	  Node<Item> next = tmp.next.next;
+	  tmp.next = next;
     throw new UnsupportedOperationException();
   }
 
