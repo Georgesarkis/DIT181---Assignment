@@ -1,3 +1,8 @@
+package assignment2;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 class Tree<Item extends Comparable<Item>> {
   // If the tree is empty, root is a null reference.
@@ -87,11 +92,35 @@ class Tree<Item extends Comparable<Item>> {
     throw new UnsupportedOperationException();
   }
 
+  
+  
+  
+
+  
   // Print the nodes of the tree in breadth-first order
-  public static <Item extends Comparable<Item>> Tree<Item> BuildDFS() {
-    throw new UnsupportedOperationException();
+  public static <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
+	 Stack stack = new Stack();
+	 Tree newTree = new Tree();
+	 if(!list.isEmpty()) {
+		 
+	 }
+	 return newTree;
   }
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // Return the n-th element in DFS order.
   // Throw an exception if index out of range.
   public void nthDFS(int n) {
@@ -113,11 +142,44 @@ class Tree<Item extends Comparable<Item>> {
     throw new UnsupportedOperationException();
   }
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // Insert i into a binary search tree
   public void insertBST(Item i) {
     throw new UnsupportedOperationException();
   }
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
 
