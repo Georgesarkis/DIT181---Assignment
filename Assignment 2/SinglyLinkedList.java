@@ -150,10 +150,22 @@ class SinglyLinkedList<Item> {
 
   // Reverse the list
   public void reverse() {
-  //  if (...)
-  //    throw new IllegalArgumentException("Queue size must be non-negative");
-    throw new UnsupportedOperationException();
+   first = reverse(first);
   }
+   private Node<Item> reverse (Node<Item> node){
+	  Node<Item> prev = null;
+	  Node<Item> current = node;
+	  Node<Item> next = null;
+	  while (current != null) {
+          next = current.next;
+          current.next = prev;
+          prev = current;
+          current = next;
+      }
+      node = prev;
+      return node;
+	
+   }
 
   public Iterator<Item> first() {
     throw new UnsupportedOperationException();
