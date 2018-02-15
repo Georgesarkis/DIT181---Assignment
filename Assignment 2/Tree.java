@@ -211,11 +211,27 @@ class Tree<Item extends Comparable<Item>> {
 		  }
 	  }
   }
+
   
   // Insert i into a binary search tree
-  public void insertBST(Item i) {
-    throw new UnsupportedOperationException();
+public void insertBST(Item i) {
+    root = insertBST(root, i);
   }
+  private Node<Item> insertBST (Node<Item> root, Item key){
+    if(root == null) {
+      root = new Node<>();
+      root.el = key;
+      return root;
+    }
+    if(root.el.compareTo(key) > 0)
+      root.left = insertBST(root.left, key);
+    else if(root.el.compareTo(key) < 0)
+      root.right  = insertBST(root.right, key);
+    
+    return root;
+  }
+
+
 
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
