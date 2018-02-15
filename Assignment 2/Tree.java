@@ -87,9 +87,29 @@ class Tree<Item extends Comparable<Item>> {
   //private static <Item> int doSomething(Node<Item> n) {
   //}
 
+
   // Print the nodes of the tree in breadth-first order
-  public void printBFS() {
-    throw new UnsupportedOperationException();
+ public void printBFS() {
+  printBFS(root);
+  }
+  
+  private void printBFS(Node<Item> root) {
+    if(root.equals(null))
+       return;
+    
+    ArrayDeque<Node> treeList = new ArrayDeque<>();
+    treeList.add(root);
+    
+    while(! treeList.isEmpty()){
+      Node<Item> node = treeList.peek();
+      System.out.println(node.el);
+      treeList.remove();
+      if(node.left!= null)
+        treeList.add(node.left);
+      if(node.right!= null)
+        treeList.add(node.right);
+    }
+    
   }
 
   
