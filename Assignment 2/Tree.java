@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -18,7 +19,16 @@ class Tree<Item extends Comparable<Item>> {
   }
 
   public int size() {
-    throw new UnsupportedOperationException();
+	  return size1(root);
+  }
+  private int size1(Node node) {
+	  int size = 0;
+	  if(node == null) {
+	  }
+	  else {
+		  size = size1(node.left) + 1 + size1(node.right);
+	  }
+	  return size;
   }
 
   // This method constructs the following
@@ -64,7 +74,23 @@ class Tree<Item extends Comparable<Item>> {
 
   // Return the height of the tree
   public int height() {
-    throw new UnsupportedOperationException();
+	  return height(root);
+  }
+  private int height(Node node) {
+	  int height = 0;
+	  if(node == null) {
+	  }
+	  else {
+		  int leftHeight = height(node.left);
+		  int rightHeight = height(node.right);
+		  if(leftHeight > rightHeight) {
+			  height = leftHeight +1 ;
+		  }
+		  else {
+			  height = rightHeight +1 ;
+		  }
+	  }
+	  return height;
   }
 
   // Return the label of the leftmost node of a tree
@@ -74,7 +100,16 @@ class Tree<Item extends Comparable<Item>> {
 
   // Replace the tree with its mirror image
   public void mirror() {
-    throw new UnsupportedOperationException();
+	  mirror(root);
+  }
+  public void mirror(Node root){
+	  if(root != null){
+	  Node<Item> tmp = root.left;
+	  root.left = root.right;
+	  root.right = tmp;
+	  }
+	  mirror(root.right);
+	  mirror(root.left);
   }
 
   // Print the nodes of the tree in depth-first order
@@ -111,35 +146,23 @@ class Tree<Item extends Comparable<Item>> {
     }
     
   }
-
-  
-  
-  
-
-  
+ 
   // Print the nodes of the tree in breadth-first order
   public static <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
 	 Stack stack = new Stack();
 	 Tree newTree = new Tree();
-	 if(!list.isEmpty()) {
+	 for(int i = 0 ; i < list.size(); i++) {
 		 
 	 }
 	 return newTree;
+	 
   }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  public Tree<Item> preOrder(int x , Node node){
+	  Tree newTree = new Tree();
+	  node.el = x;
+	  newTree.root = node;
+	  return newTree;
+  }
   
   // Return the n-th element in DFS order.
   // Throw an exception if index out of range.
@@ -156,50 +179,44 @@ class Tree<Item extends Comparable<Item>> {
   public boolean findBST(Item i) {
     throw new UnsupportedOperationException();
   }
-
+  
   // Remove i from a binary search tree
   public void removeBST(Item i) {
-    throw new UnsupportedOperationException();
+	  remove(i,root);
   }
-
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  private Node remove(Item x, Node node) {
+	  if(node == null) {
+		  throw new UnsupportedOperationException();
+	  }
+	  else if(x < node.el) {
+		  remove(x,node.left);
+	  }
+	  else if(x > node.el) {
+		  remove(x,node.right);
+	  }
+	  else {
+		  if(node.left == null) {
+			  return node.right;
+		  }else if(node.right == null) {
+			  return node.left;
+		  }else {
+			  Node min = new Node();
+			  min = node.right;
+			  while(min.left != null) {
+				  min = min.left;
+			  }
+			  node.el = min.el;
+			  min = null;
+		  }
+	  }
+  }
   
   // Insert i into a binary search tree
   public void insertBST(Item i) {
     throw new UnsupportedOperationException();
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
 
