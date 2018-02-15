@@ -79,6 +79,7 @@ class SinglyLinkedList<Item> {
       }
       
       Node<Item> current = first;
+      
       for(int i = 0; i< n; i++)
         current = current.next;
     
@@ -139,7 +140,7 @@ class SinglyLinkedList<Item> {
     throw new UnsupportedOperationException();
   }
 
-  public Node<Item> head;
+  
 
   // Represent the contents of the list as a String
   /*
