@@ -1,6 +1,9 @@
 package assignment2;
 
-class SinglyLinkedList<Item> {
+import java.util.Collection;
+import java.util.Objects;
+
+class SinglyLinkedListCol<Item> implements Collection<Item> {
   private int size = 0;
   private Node<Item> first;
   
@@ -12,12 +15,12 @@ class SinglyLinkedList<Item> {
   }
 
   public static class Iterator<Item>{
-	SinglyLinkedList list;
+	SinglyLinkedListCol list;
 	Node<Item> current;
 	Node<Item> prev;
 	Node<Item> prevprev;
 	boolean hasNext;
-	public void itorator(SinglyLinkedList<Item> c){
+	public void itorator(SinglyLinkedListCol<Item> c){
 		  list = c; 
 		  current = c.first;
 		  prev = null;
@@ -83,7 +86,7 @@ class SinglyLinkedList<Item> {
     }
   }
   
-  public SinglyLinkedList() {
+  public SinglyLinkedListCol() {
   }
 
   public int size() {
@@ -203,28 +206,31 @@ class SinglyLinkedList<Item> {
     res.append("}");
     return res.toString();
   }*/
+  
+  public boolean equals(Object o) { 
+	o = (Item) o;
+	
+	if(o == this) 
+		return true;
+	if(!(o instanceof Node)) {
+		return false;
+	}
+	return first == Node.next; 
+  }
 
-
+  public int hashCode() {
+	return Objects.hash(first);
+  }
+  
+  public Iterator<Item> iterator() {
+	return null;
+  }
+  
   public static void main (String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
     System.out.println(l.size());
     l.insertAt(0, 1);
     l.insertAt(1, 2);
-    Iterator iterator = new Iterator();
-    iterator.itorator(l);
-    System.out.println(iterator.hasNext());
-    System.out.println(iterator.next());
-    System.out.println(iterator.next());
-    iterator.insert(1);
-    System.out.println(iterator.hasNext());
-    System.out.println(iterator.next());
-    
-//    System.out.println(l.first.el);
-//    System.out.println(l.first.next.el);
-//    System.out.println(l.first.next.next.el);
-//    System.out.print(l.size());
-//    Iterator newIterator = new Iterator();
-//    newIterator.itorator(l);
-//    newIterator.remove();
   }
 }
+

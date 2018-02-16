@@ -35,7 +35,9 @@ class RPN {
         	System.out.println(operands.pop());
         }
         if(s.equals("/")) {
-        	operands.push(operands.pop() / operands.pop());
+        	int first = operands.pop();
+        	int second = operands.pop();
+        	operands.push(second / first);
         	System.out.println(operands.pop());
         }
         if(s.equals("*")) {
