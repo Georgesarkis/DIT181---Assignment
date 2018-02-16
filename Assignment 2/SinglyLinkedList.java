@@ -1,3 +1,5 @@
+package assignment2;
+
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
@@ -47,8 +49,8 @@ class SinglyLinkedList<Item> {
     		current = newNode;
     	}
     	else if(prev == null) {
-			newNode.next = list.first;
-			list.first = newNode;
+						newNode.next = list.first;
+						list.first = newNode;
     	}
     	else {
     		prev.next = newNode;
@@ -163,10 +165,22 @@ class SinglyLinkedList<Item> {
 
   // Reverse the list
   public void reverse() {
-  //  if (...)
-  //    throw new IllegalArgumentException("Queue size must be non-negative");
-    throw new UnsupportedOperationException();
+   first = reverse(first);
   }
+   private Node<Item> reverse (Node<Item> node){
+	  Node<Item> prev = null;
+	  Node<Item> current = node;
+	  Node<Item> next = null;
+	  while (current != null) {
+          next = current.next;
+          current.next = prev;
+          prev = current;
+          current = next;
+      }
+      node = prev;
+      return node;
+	
+   }
 
   public Iterator<Item> first() {
     throw new UnsupportedOperationException();
@@ -197,25 +211,19 @@ class SinglyLinkedList<Item> {
     l.insertAt(1, 2);
     Iterator iterator = new Iterator();
     iterator.itorator(l);
-    System.out.println(l.size());
-
     System.out.println(iterator.hasNext());
     System.out.println(iterator.next());
     System.out.println(iterator.next());
     iterator.insert(1);
     System.out.println(iterator.hasNext());
     System.out.println(iterator.next());
-    l.removeAt(1);
-    System.out.println(l.size());
-
-    System.out.println(l.size());
-
-    System.out.println(l.first.el);
-    System.out.println(l.first.next.el);
-    System.out.println(l.first.next.next.el);
-    System.out.print(l.size());
-    Iterator newIterator = new Iterator();
-    newIterator.itorator(l);
-    newIterator.remove();
+    
+//    System.out.println(l.first.el);
+//    System.out.println(l.first.next.el);
+//    System.out.println(l.first.next.next.el);
+//    System.out.print(l.size());
+//    Iterator newIterator = new Iterator();
+//    newIterator.itorator(l);
+//    newIterator.remove();
   }
 }
