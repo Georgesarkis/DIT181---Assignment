@@ -10,7 +10,7 @@ class SinglyLinkedList<Item> {
     public Item el;
 
   }
-
+  
   public static class Iterator<Item>{
 	SinglyLinkedList list;
 	Node<Item> current;
