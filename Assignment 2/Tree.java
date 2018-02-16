@@ -163,28 +163,74 @@ class Tree<Item extends Comparable<Item>> {
   }
 
   // Print the nodes of the tree in breadth-first order
-  public static <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
-	 Stack stack = new Stack();
-	 Tree newTree = new Tree();
-	 for(int i = 0 ; i < list.size(); i++) {
-		 
-	 }
-	 return newTree;
+  public static  <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
+	  Tree newTree = new Tree();
+	  Node root = new Node();
+//	  root.el = list.get(0);
+//	  list.remove(0);
+	  preOrder(list,root,0);
+	  return newTree;
 	 
   }
-  public Tree<Item> preOrder(int x , Node node){
-	  Tree newTree = new Tree();
-	  node.el = x;
-	  newTree.root = node;
-	  return newTree;
+  private static Node preOrder(List list, Node node, int count){
+	  if(count < list.size()) {
+		  Node newnode = new Node();
+		  newnode.el = list.get(count);
+		  newnode= node;
+	  }
+	  node.left = preOrder(list,node.left,count+1);
+	  node.right = preOrder(list,node.right,count+2);
+	  return node;
   }
+
+  
+  
+  private static void printDFS(Node root) {
+	    if(root == null) {
+	   
+	    }
+	    ArrayDeque<Node> treeList = new ArrayDeque<>();
+	    treeList.add(root);
+	    
+	    while(! treeList.isEmpty()){
+	      Node node = treeList.peek();
+	      System.out.println(node.el);
+	      treeList.remove();
+	      if(node.left!= null)
+	        treeList.add(node.left);
+	      if(node.right!= null)
+	        treeList.add(node.right);
+	    }
+	    
+	  }
+  
   
   // Return the n-th element in DFS order.
   // Throw an exception if index out of range.
-  public void nthDFS(int n) {
-    throw new UnsupportedOperationException();
+  public Item nthDFS(int n) {
+	  Stack stack = new Stack();
+	  Node current = root;
+	  stack.add(root);
+	  int count = 0;
+	  while(stack.isEmpty() == false && count != n) {
+		  current = (Node) stack.pop();
+		  count++;
+		  if(current.right != null) {
+			  stack.push(current.right);
+		  }
+		  else if(current.left != null) {
+			  stack.push(current.left);
+		  }
+		 
+	  }
+	  if(count == n) {
+		  return (Item) current.el;
+	  }
+     throw new UnsupportedOperationException();
   }
 
+  
+  
   // Check if the tree is a binary search tree
   public boolean isBST() {
     throw new UnsupportedOperationException();
@@ -200,14 +246,14 @@ class Tree<Item extends Comparable<Item>> {
 	  remove(i,root);
   }
   
-  private Node remove(Item x, Node node) {
+  private Node remove(Item x, Node<Item> node) {
 	  if(node == null) {
 		  throw new UnsupportedOperationException();
 	  }
-	  else if(x < node.el) {
+	  else if(node.el.compareTo(x) > 0) {
 		  remove(x,node.left);
 	  }
-	  else if(x > node.el) {
+	  else if(node.el.compareTo(x) < 0) {
 		  remove(x,node.right);
 	  }
 	  else {
@@ -221,10 +267,11 @@ class Tree<Item extends Comparable<Item>> {
 			  while(min.left != null) {
 				  min = min.left;
 			  }
-			  node.el = min.el;
+			  node.el = (Item) min.el;
 			  min = null;
 		  }
 	  }
+	return node;
   }
 
   
@@ -251,9 +298,21 @@ public void insertBST(Item i) {
   
   
   public static void main(String[] args) {
-    Tree<Integer> t = exampleTree();
-
-    System.out.println(t.size());
+    Tree<Integer> t;
+    List list = new ArrayList();
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.add(4);
+    list.add(5);
+    list.add(6);
+    list.add(7);
+    BuildDFS(list);
+//    t.exampleTree();
+//    System.out.println(t.size());
+//    t.printBFS();
+////    System.out.println(t.printBFS());
+//    System.out.println(t.nthDFS(2));   
   }
 
 }

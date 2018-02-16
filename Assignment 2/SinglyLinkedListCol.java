@@ -1,7 +1,8 @@
-package assignment2;
+package Assignment2;
 
 import java.util.Collection;
 import java.util.Objects;
+import Assignment2.SinglyLinkedList.Iterator;
 
 class SinglyLinkedListCol<Item> implements Collection<Item> {
   private int size = 0;
@@ -16,28 +17,19 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
 
   public static class Iterator<Item>{
 	SinglyLinkedListCol list;
-	Node<Item> current;
-	Node<Item> prev;
-	Node<Item> prevprev;
+	Node<Item> current = list.first;
 	boolean hasNext;
 	public void itorator(SinglyLinkedListCol<Item> c){
 		  list = c; 
-		  current = c.first;
-		  prev = null;
-		  prevprev = null;
-	  }
+	}
 	public Item next() {
     	if(current.next == null) {
     		hasNext = false;
-    		prev = current;
-    		current = current.next;
-    		return prev.el;
+    		return null;
     	}
     	else {
-    		prevprev = prev;
-    		prev = current;
 	    	current = current.next;
-	    	return prev.el;
+	    	return current.el;
     	}
     	
     }
@@ -47,47 +39,37 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
     public void insert(Item e) {
     	Node<Item> newNode = new Node<Item>();
     	newNode.el = e;
-    	if(current == null && prev== null) {
+    	if(current == null) {
     		list.first = newNode;
     		current = newNode;
     	}
-    	else if(prev == null) {
-						newNode.next = list.first;
-						list.first = newNode;
+    	else if(hasNext) {
+			newNode.next = current.next;
+			current.next = newNode;
     	}
     	else {
-    		prev.next = newNode;
-    		newNode.next = current;
+    		current.next = newNode;
+    		newNode.next = null;
     	}
     	list.size++;
     }
     
     public void remove() {
-    	if(current == list.first ) {
-    		list.first = list.first.next;
-    		current = list.first;
-    	}
-    	else if(prevprev == null) {
-    		list.first = list.first.next;
-    		prev.next = null;
-    	}
-    	else if(current == null) {
-    		prevprev.next = null;
-    	}
-    	else if(current.next == null) {
-    		prevprev.next = current;
-    		prev.next = null;
+    	if(current == list.first) {
+    		list.first = current.next;
     	}
     	else {
-    		prevprev.next = current;
-    		current.next = null;
+	    	Node toRemove = list.first;
+	    	while(toRemove.next != current) {
+	    		toRemove = toRemove.next;
+	    	}
+	    	toRemove.next = current.next;
     	}
-    	list.size--;
     }
   }
   
-  public SinglyLinkedListCol() {
-  }
+  
+  
 
   public int size() {
     return size;
@@ -101,7 +83,6 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
       }
       
       Node<Item> current = first;
-      
       for(int i = 0; i< n; i++)
         current = current.next;
     
@@ -146,32 +127,16 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
-	  if (first == null)
-		  return;
-	  
-	  Node<Item> tmp = first;
-	  
-	  if (n < 0 || n > size) {
-		  throw new IllegalArgumentException("Index ouf of bounds");
-    }
-	  if (n == 0) {
-		  first = tmp.next;
-		  size--;
-		  return;
-    }
-	  for(int i = 0; tmp != null && i < n - 1; i++) {
-		  Node<Item> next = tmp.next.next;
-		  tmp.next = next;
-
-	  }
-	  size--;
+  //  if (...)
+  //    throw new IllegalArgumentException("Index ouf of bounds");
+    throw new UnsupportedOperationException();
   }
 
   // Reverse the list
   public void reverse() {
    first = reverse(first);
   }
-   private Node<Item> reverse (Node<Item> node){
+  private Node<Item> reverse (Node<Item> node){
 	  Node<Item> prev = null;
 	  Node<Item> current = node;
 	  Node<Item> next = null;
@@ -183,14 +148,15 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
       }
       node = prev;
       return node;
-	
+
    }
+
+  }
 
   public Iterator<Item> first() {
     throw new UnsupportedOperationException();
   }
 
-  
 
   // Represent the contents of the list as a String
   /*
@@ -206,8 +172,180 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
     res.append("}");
     return res.toString();
   }*/
+
+  public static void main (String[] args) {
+    SinglyLinkedListCol<Integer> l = new SinglyLinkedListCol<Integer>();
+
+    System.out.println("the size of list now is "+l.size());
+    
+    l.insertAt(0, 1);
+    l.insertAt(1, 2);
+    l.insertAt(2, 3);
+    
+    System.out.println("The element at index 0 is"+l.get(0));
+    System.out.println("The element at index 1 is"+l.get(1));
+    System.out.println("The element at index 2 is"+l.get(2));
+    
+   l.reverse();
+   
+   System.out.println("The element at index 0 is"+l.get(0));
+   System.out.println("The element at index 1 is"+l.get(1));
+   System.out.println("The element at index 2 is"+l.get(2));
+   
+   System.out.println("the size of list now is "+l.size());
+   
+   l.remove(3);
   
-  public boolean equals(Object o) { 
+   
+   System.out.println("the size of list now is "+l.size());
+   System.out.println(l.contains(3));
+   
+   
+//  
+//    l.push(10);
+//    System.out.println("The element at index 0 is"+l.get(0));
+//    System.out.println("the size of list now is "+l.size());
+//    
+//    
+//    l.push(100);
+//    l.pop();
+//    
+//    System.out.println("The element at index 0 is"+l.get(0));
+//    System.out.println("the size of list now is "+l.size());
+//    
+//    l.push(4000);
+//    System.out.println("The top of the stack is "+ l.top());
+    
+  
+   
+   
+    
+    
+  
+    
+//  System.out.print(l.size());
+// Iterator newIterator = new Iterator();
+//  newIterator.itorator(l);
+//  newIterator.remove();
+    
+  }
+
+
+@Override
+public boolean isEmpty() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+
+@Override
+public boolean contains(Object o) {
+	o = (Item) o;
+	Node<Item> current = first;
+	if(current==null)
+		return false;
+	while(current != null) {
+		if(current.el==o)
+			return true;
+		current = current.next;
+	}
+	return false;
+}
+
+
+@Override
+public java.util.Iterator<Item> iterator() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
+@Override
+public Object[] toArray() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
+@Override
+public <T> T[] toArray(T[] a) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
+@Override
+public boolean add(Item e) {
+	Iterator<Item> newNode = new Iterator<>();
+	newNode.insert(e);
+	return true;
+}
+
+
+@Override
+public boolean remove(Object o ) {
+	o = (Item) o;
+	Node current = first , prev =null;
+	
+	if(current != null && current.el== o) {
+		first = current.next;
+		size--;
+		return true;
+	}
+	
+	while( current!= null && current.el!= o) {
+		prev = current;
+		current = current.next;
+	}
+	
+	if(current == null)
+		return false;
+	else {
+		prev.next = current.next;
+		size--;
+		return true;
+	}
+		
+	
+}
+
+
+@Override
+public boolean containsAll(Collection<?> c) {
+	// TODO Auto-generated method stub
+	
+	return false;
+}
+
+
+@Override
+public boolean addAll(Collection<? extends Item> c) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+
+@Override
+public boolean removeAll(Collection<?> c) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+
+@Override
+public boolean retainAll(Collection<?> c) {
+	// TODO Auto-generated method stub
+	
+	return false;
+}
+
+
+@Override
+public void clear() {
+	this.first = null;
+}
+
+public boolean equals(Object o) { 
 	o = (Item) o;
 	
 	if(o == this) 
@@ -216,21 +354,15 @@ class SinglyLinkedListCol<Item> implements Collection<Item> {
 		return false;
 	}
 	return first == Node.next; 
-  }
+}
 
-  public int hashCode() {
+public int hashCode() {
 	return Objects.hash(first);
-  }
-  
-  public Iterator<Item> iterator() {
+}
+
+public Iterator<Item> iterator() {
 	return null;
-  }
-  
-  public static void main (String[] args) {
-    SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
-    System.out.println(l.size());
-    l.insertAt(0, 1);
-    l.insertAt(1, 2);
-  }
+}
+
 }
 

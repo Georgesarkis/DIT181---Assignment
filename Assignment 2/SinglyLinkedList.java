@@ -1,6 +1,6 @@
 package assignment2;
 
-class SinglyLinkedList<Item> {
+class SinglyLinkedList<Item> implements MyStack<Item> {
   private int size = 0;
   private Node<Item> first;
   
@@ -10,73 +10,70 @@ class SinglyLinkedList<Item> {
     public Item el;
 
   }
-
+  public Iterator<Item> first() {
+	  Iterator<Item> it = new Iterator<Item>(); 
+	  it.itorator(this);
+	  
+	  return it;
+	  }
   public static class Iterator<Item>{
 	SinglyLinkedList list;
-	Node<Item> current;
+	Node<Item> current = new Node();
 	Node<Item> prev;
-	Node<Item> prevprev;
 	boolean hasNext;
-	public void itorator(SinglyLinkedList<Item> c){
-		  list = c; 
-		  current = c.first;
-		  prev = null;
-		  prevprev = null;
+	
+	public void itorator(SinglyLinkedList c){
+		  list = c;  
+		  current.next  = list.first;
+		  list.first = current;
 	  }
 	public Item next() {
     	if(current.next == null) {
     		hasNext = false;
     		prev = current;
     		current = current.next;
-    		return prev.el;
+    		return current.el;
     	}
     	else {
-    		prevprev = prev;
     		prev = current;
 	    	current = current.next;
-	    	return prev.el;
+	    	return current.el;
     	}
     	
     }
     public boolean hasNext() {
-    	return current !=null && current.next != null;
+    	return current.next != null;
     }
     public void insert(Item e) {
     	Node<Item> newNode = new Node<Item>();
     	newNode.el = e;
     	if(current == null && prev== null) {
-    		list.first = newNode;
+    		newNode.next = list.first.next;
     		current = newNode;
     	}
-    	else if(prev == null) {
-						newNode.next = list.first;
-						list.first = newNode;
+    	else if(current.next == null) {
+    		current.next = newNode;
+			newNode.next = null;
+			
     	}
     	else {
-    		prev.next = newNode;
-    		newNode.next = current;
+    		newNode.next = current.next;
+			current.next = newNode;
     	}
     	list.size++;
     }
     
     public void remove() {
     	if(current == list.first ) {
-    		list.first = list.first.next;
-    		current = list.first;
-    	}
-    	else if(prevprev == null) {
-    		list.first = list.first.next;
+    		prev= current;
+    		current = current.next;
     		prev.next = null;
     	}
-    	else if(current == null) {
-    		prevprev.next = null;
-    	}
     	else if(current.next == null) {
-    		prevprev.next = current;
     		prev.next = null;
     	}
     	else {
-    		prevprev.next = current;
+    		prev.next = current.next;
     		current.next = null;
     	}
     	list.size--;
@@ -99,10 +96,11 @@ class SinglyLinkedList<Item> {
       
       Node<Item> current = first;
       
-      for(int i = 0; i< n; i++)
+      for(int i = 0; i< n; i++) {
         current = current.next;
+        
+        }
     
-  
   return current.el;
   
   }
@@ -183,42 +181,99 @@ class SinglyLinkedList<Item> {
 	
    }
 
-  public Iterator<Item> first() {
-    throw new UnsupportedOperationException();
-  }
+
+
+  @Override
+public boolean isEmpty() {
+	
+	return first == null;
+}
+
+@Override
+public void makeEmpty() {
+	
+	first = null;
+	this.size = 0;
+	
+}
+
+@Override
+public void push(Item element) {
+	
+	if(isEmpty()) {
+		first = new Node<>();
+		first.el = element;
+		first.next = null;
+	}
+	else {
+		Node<Item> newNode = new Node<>();
+		newNode.next = first;
+		newNode.el = element;
+		first = newNode;
+	}
+	size++;
+		
+}
+
+@Override
+public void pop() {
+	// TODO Auto-generated method stub
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	 first = first.next;
+	 size--;
+	
+}
+
+@Override
+public Item top() {
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	return first.el;
+}
+
+@Override
+public Item topAndPop() {
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	Item temp = first.el;
+	first = first.next;
+	size--;
+	return temp;
+}
 
   
 
   // Represent the contents of the list as a String
-  /*
-  public String toString() {
-    StringBuilder res = new StringBuilder("{");
-    if (size > 0) {
-      res.append(firstEl.toString());
-      for (int i = 1; i < size; ++i) {
-        res.append(", ");
-        res.append(el.toString());
-      }
-    }
-    res.append("}");
-    return res.toString();
-  }*/
+  
+//  public String toString() {
+//    StringBuilder res = new StringBuilder("{");
+//    if (size > 0) {
+//      res.append(first.el.toString());
+//      for (int i = 1; i < size; ++i) {
+//        res.append(", ");
+//        res.append(first.next.el.toString());
+//      }
+//    }
+//    res.append("}");
+//    return res.toString();
+//  }
 
 
   public static void main (String[] args) {
-    SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
-    System.out.println(l.size());
-    l.insertAt(0, 1);
-    l.insertAt(1, 2);
-    Iterator iterator = new Iterator();
-    iterator.itorator(l);
-    System.out.println(iterator.hasNext());
-    System.out.println(iterator.next());
-    System.out.println(iterator.next());
-    iterator.insert(1);
-    System.out.println(iterator.hasNext());
-    System.out.println(iterator.next());
-    
+//    SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
+//    System.out.println(l.size());
+//    l.insertAt(0, 1);
+//    l.insertAt(1, 2);
+//    Iterator iterator = new Iterator();
+//    iterator.itorator(l);
+//    System.out.println(iterator.hasNext());
+//    System.out.println(iterator.next());
+//    System.out.println(iterator.next());
+//    iterator.insert(1);
+//    System.out.println(iterator.hasNext());
+//    System.out.println(iterator.next());
+//    
 //    System.out.println(l.first.el);
 //    System.out.println(l.first.next.el);
 //    System.out.println(l.first.next.next.el);
