@@ -114,8 +114,23 @@ class Tree<Item extends Comparable<Item>> {
 
   // Print the nodes of the tree in depth-first order
   public void printDFS() {
+	  if(root == null)
+		  return;
+	  Stack<Node> stack = new Stack<Node>();
+	  stack.push(root);
+	  
+	  while(!stack.isEmpty()) {
+		  Node node = stack.pop();
+		  System.out.println(node.el + " ");
+		  
+		  if(node.right != null) {
+			  stack.push(node.right);
+		  }
+		  if(node.left != null) {
+			  stack.push(node.left);
+		  }
+	  }
     // Use Sytem.out.println() and el.toString() to print the elements
-    throw new UnsupportedOperationException();
   }
 
   // Here is how to create a generic static method
@@ -146,7 +161,7 @@ class Tree<Item extends Comparable<Item>> {
     }
     
   }
- 
+
   // Print the nodes of the tree in breadth-first order
   public static  <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
 	  Tree newTree = new Tree();
@@ -256,6 +271,7 @@ class Tree<Item extends Comparable<Item>> {
   }
 
   
+
   // Insert i into a binary search tree
 public void insertBST(Item i) {
     root = insertBST(root, i);
@@ -275,7 +291,8 @@ public void insertBST(Item i) {
   }
 
 
-
+  
+  
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
 

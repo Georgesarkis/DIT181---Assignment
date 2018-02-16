@@ -15,9 +15,10 @@ class RPN {
     System.out.print(prompt);
 
     while(in.hasNext()){
-      if(in.hasNextInt()) {
+      if(in.hasNextInt() ) {
         int x = in.nextInt();
         System.out.println("Got an integer: " + x);
+        operands.push(x);
       } else {
         String s=in.next();
         if(s.equals("quit")) {
@@ -25,6 +26,22 @@ class RPN {
           break;
         }
         System.out.println("Got a string: " + s);
+        if(s.equals("+")) {
+        	operands.push(operands.pop() + operands.pop());
+        	System.out.println(operands.pop());
+        }
+        if(s.equals("-")) {
+        	operands.push(operands.pop() - operands.pop());
+        	System.out.println(operands.pop());
+        }
+        if(s.equals("/")) {
+        	operands.push(operands.pop() / operands.pop());
+        	System.out.println(operands.pop());
+        }
+        if(s.equals("*")) {
+        	operands.push(operands.pop() * operands.pop());
+        	System.out.println(operands.pop());
+        }
       }
       System.out.print(prompt);
     }

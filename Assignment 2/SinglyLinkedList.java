@@ -49,8 +49,8 @@ class SinglyLinkedList<Item> {
     		current = newNode;
     	}
     	else if(prev == null) {
-			newNode.next = list.first;
-			list.first = newNode;
+						newNode.next = list.first;
+						list.first = newNode;
     	}
     	else {
     		prev.next = newNode;
@@ -143,9 +143,24 @@ class SinglyLinkedList<Item> {
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+	  if (first == null)
+		  return;
+	  
+	  Node<Item> tmp = first;
+	  
+	  if (n < 0 || n > size) {
+		  throw new IllegalArgumentException("Index ouf of bounds");
+    }
+	  if (n == 0) {
+		  first = tmp.next;
+		  return;
+    }
+	  for(int i = 0; tmp != null && i < n - 1; i++) {
+		  Node<Item> next = tmp.next.next;
+		  tmp.next = next;
+
+	  }
+	  size--;
   }
 
   // Reverse the list
