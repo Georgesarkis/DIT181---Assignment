@@ -195,27 +195,27 @@ class SinglyLinkedList<Item> {
     System.out.println(l.size());
     l.insertAt(0, 1);
     l.insertAt(1, 2);
-//    Iterator iterator = new Iterator();
-//    iterator.itorator(l);
+    Iterator iterator = new Iterator();
+    iterator.itorator(l);
     System.out.println(l.size());
 
-//    System.out.println(iterator.hasNext());
-//    System.out.println(iterator.next());
-//    System.out.println(iterator.next());
-//    iterator.insert(1);
-//    System.out.println(iterator.hasNext());
-//    System.out.println(iterator.next());
+    System.out.println(iterator.hasNext());
+    System.out.println(iterator.next());
+    System.out.println(iterator.next());
+    iterator.insert(1);
+    System.out.println(iterator.hasNext());
+    System.out.println(iterator.next());
     l.removeAt(1);
     System.out.println(l.size());
 
-  //  System.out.println(l.size());
+    System.out.println(l.size());
 
-//    System.out.println(l.first.el);
-//    System.out.println(l.first.next.el);
-//    System.out.println(l.first.next.next.el);
-//    System.out.print(l.size());
-//    Iterator newIterator = new Iterator();
-//    newIterator.itorator(l);
-//    newIterator.remove();
+    System.out.println(l.first.el);
+    System.out.println(l.first.next.el);
+    System.out.println(l.first.next.next.el);
+    System.out.print(l.size());
+    Iterator newIterator = new Iterator();
+    newIterator.itorator(l);
+    newIterator.remove();
   }
 }
