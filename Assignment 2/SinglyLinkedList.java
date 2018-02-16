@@ -1,6 +1,6 @@
 package assignment2;
 
-class SinglyLinkedList<Item> {
+class SinglyLinkedList<Item> implements MyStack<Item> {
   private int size = 0;
   private Node<Item> first;
   
@@ -182,6 +182,65 @@ class SinglyLinkedList<Item> {
    }
 
 
+
+  @Override
+public boolean isEmpty() {
+	
+	return first == null;
+}
+
+@Override
+public void makeEmpty() {
+	
+	first = null;
+	this.size = 0;
+	
+}
+
+@Override
+public void push(Item element) {
+	
+	if(isEmpty()) {
+		first = new Node<>();
+		first.el = element;
+		first.next = null;
+	}
+	else {
+		Node<Item> newNode = new Node<>();
+		newNode.next = first;
+		newNode.el = element;
+		first = newNode;
+	}
+	size++;
+		
+}
+
+@Override
+public void pop() {
+	// TODO Auto-generated method stub
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	 first = first.next;
+	 size--;
+	
+}
+
+@Override
+public Item top() {
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	return first.el;
+}
+
+@Override
+public Item topAndPop() {
+	if(isEmpty())
+		throw new UnsupportedOperationException("an Empty list");
+	Item temp = first.el;
+	first = first.next;
+	size--;
+	return temp;
+}
 
   
 
