@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 class Tree<Item extends Comparable<Item>> {
   // If the tree is empty, root is a null reference.
@@ -74,25 +77,83 @@ class Tree<Item extends Comparable<Item>> {
 
   // Print the nodes of the tree in depth-first order
   public void printDFS() {
+	  if(root == null)
+		  return;
+	  Stack<Node> stack = new Stack<Node>();
+	  stack.push(root);
 	  
+	  while(!stack.isEmpty()) {
+		  Node node = stack.pop();
+		  System.out.println(node.el + " ");
+		  
+		  if(node.right != null) {
+			  stack.push(node.right);
+		  }
+		  if(node.left != null) {
+			  stack.push(node.left);
+		  }
+	  }
     // Use Sytem.out.println() and el.toString() to print the elements
-    throw new UnsupportedOperationException();
   }
 
   // Here is how to create a generic static method
   //private static <Item> int doSomething(Node<Item> n) {
   //}
 
-  // Print the nodes of the tree in breadth-first order
-  public void printBFS() {
-    throw new UnsupportedOperationException();
-  }
 
   // Print the nodes of the tree in breadth-first order
-  public static <Item extends Comparable<Item>> Tree<Item> BuildDFS() {
-    throw new UnsupportedOperationException();
+// public void printBFS() {
+//  printBFS(root);
+//  }
+//  
+//  private void printBFS(Node<Item> root) {
+//    if(root.equals(null))
+//       return;
+//    
+//    ArrayDeque<Node> treeList = new ArrayDeque<>();
+//    treeList.add(root);
+//    
+//    while(! treeList.isEmpty()){
+//      Node<Item> node = treeList.peek();
+//      System.out.println(node.el);
+//      treeList.remove();
+//      if(node.left!= null)
+//        treeList.add(node.left);
+//      if(node.right!= null)
+//        treeList.add(node.right);
+//    }
+//    
+//  }
+
+  
+  
+  
+
+  
+  // Print the nodes of the tree in breadth-first order
+  public static <Item extends Comparable<Item>> Tree<Item> BuildDFS(List list) {
+	 Stack stack = new Stack();
+	 Tree newTree = new Tree();
+	 if(!list.isEmpty()) {
+		 
+	 }
+	 return newTree;
   }
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // Return the n-th element in DFS order.
   // Throw an exception if index out of range.
   public void nthDFS(int n) {
@@ -114,11 +175,30 @@ class Tree<Item extends Comparable<Item>> {
     throw new UnsupportedOperationException();
   }
 
+  
+  
+  
   // Insert i into a binary search tree
-  public void insertBST(Item i) {
-    throw new UnsupportedOperationException();
+public void insertBST(Item i) {
+    root = insertBST(root, i);
+  }
+  private Node<Item> insertBST (Node<Item> root, Item key){
+    if(root == null) {
+      root = new Node<>();
+      root.el = key;
+      return root;
+    }
+    if(root.el.compareTo(key) > 0)
+      root.left = insertBST(root.left, key);
+    else if(root.el.compareTo(key) < 0)
+      root.right  = insertBST(root.right, key);
+    
+    return root;
   }
 
+  
+  
+  
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
 

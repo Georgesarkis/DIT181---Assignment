@@ -1,5 +1,3 @@
-import SinglyLinkedList.Node;
-
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
@@ -12,35 +10,74 @@ class SinglyLinkedList<Item> {
   }
 
   public static class Iterator<Item>{
-	public Item next(Node<Item> current) {
-    	return current.next.el;
-    }
-    public boolean hasNext(Node<Item> current) {
-    	if(current.next != null) {
-    		return true;
-    	}
-    	return false;
-    }
-    public Node<Item> insert(Item e,Node<Item> first) {
-    	Node<Item> new_node = new Node<Item>();
-    	Node<Item> current = new Node<Item>();
-    	current = first;
-    	new_node.el = e;
-    	new_node.next = null;
-    	while(current.next != null) {
+	SinglyLinkedList list;
+	Node<Item> current;
+	Node<Item> prev;
+	Node<Item> prevprev;
+	boolean hasNext;
+	public void itorator(SinglyLinkedList<Item> c){
+		  list = c; 
+		  current = c.first;
+		  prev = null;
+		  prevprev = null;
+	  }
+	public Item next() {
+    	if(current.next == null) {
+    		hasNext = false;
+    		prev = current;
     		current = current.next;
+    		return prev.el;
     	}
-    	current.next = new_node;
-    	return first;
+    	else {
+    		prevprev = prev;
+    		prev = current;
+	    	current = current.next;
+	    	return prev.el;
+    	}
+    	
     }
-    public Node<Item> remove(Node<Item> first) {
-    	Node<Item> current = new Node<Item>();
-    	current = first;
-    	while(current.next.next !=null) {
-    		current = current.next;
+    public boolean hasNext() {
+    	return current !=null && current.next != null;
+    }
+    public void insert(Item e) {
+    	Node<Item> newNode = new Node<Item>();
+    	newNode.el = e;
+    	if(current == null && prev== null) {
+    		list.first = newNode;
+    		current = newNode;
     	}
-    	current.next = null;
-    	return first;
+    	else if(prev == null) {
+			newNode.next = list.first;
+			list.first = newNode;
+    	}
+    	else {
+    		prev.next = newNode;
+    		newNode.next = current;
+    	}
+    	list.size++;
+    }
+    
+    public void remove() {
+    	if(current == list.first ) {
+    		list.first = list.first.next;
+    		current = list.first;
+    	}
+    	else if(prevprev == null) {
+    		list.first = list.first.next;
+    		prev.next = null;
+    	}
+    	else if(current == null) {
+    		prevprev.next = null;
+    	}
+    	else if(current.next == null) {
+    		prevprev.next = current;
+    		prev.next = null;
+    	}
+    	else {
+    		prevprev.next = current;
+    		current.next = null;
+    	}
+    	list.size--;
     }
   }
   
@@ -54,19 +91,15 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
 
-     Node<Item> current = head;
-
     if (n >= size || n < 0){
         throw new IndexOutOfBoundsException("Index ouf of bounds");
       }
-
-    if(n< size() && n > 0){
+      
+      Node<Item> current = first;
+      
       for(int i = 0; i< n; i++)
         current = current.next;
-    }
-
-    if(n==0)
-      current = head;
+    
   
   return current.el;
   
@@ -85,42 +118,47 @@ class SinglyLinkedList<Item> {
 	  else if(n == 0) {
 		  new_node.next = first;
 		  first = new_node;
-		  size++;
 	  }
 	  else if(n == size) {
-		 for(int i = 0; i <= n; i++) {
-			 current = current.next;
+		 while(current.next != null) {
+		 current = current.next;
 		 }
 		 current.next = new_node;
 		 new_node.next = null;
-		 size++;
 	  }
+		 
 	  else {
-		  for(int i = 0 ; i < n ; i++) {
+		  int position = 0;
+		  while(current.next != null && position != n) {
 			  current = current.next;
+			  position++;
 		  }
 		  new_node.next = current.next;
-		  current.next = new_node;
-		  size++;
+		  current.next = new_node;  
 	  }
+	  size++;
   }   
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
+	  if (first == null)
+		  return;
+	  
 	  Node<Item> tmp = first;
+	  
 	  if (n < 0 || n > size) {
 		  throw new IllegalArgumentException("Index ouf of bounds");
     }
-	  else if (n == 0) {
+	  if (n == 0) {
 		  first = tmp.next;
 		  return;
     }
-	  for(int i = 0; tmp != null && i < n - 1; i++)
-		  tmp = tmp.next;
-     
-	  Node<Item> next = tmp.next.next;
-	  tmp.next = next;
-    throw new UnsupportedOperationException();
+	  for(int i = 0; tmp != null && i < n - 1; i++) {
+		  Node<Item> next = tmp.next.next;
+		  tmp.next = next;
+
+	  }
+	  size--;
   }
 
   // Reverse the list
@@ -134,7 +172,7 @@ class SinglyLinkedList<Item> {
     throw new UnsupportedOperationException();
   }
 
-  public Node<Item> head;
+  
 
   // Represent the contents of the list as a String
   /*
@@ -155,5 +193,29 @@ class SinglyLinkedList<Item> {
   public static void main (String[] args) {
     SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
     System.out.println(l.size());
+    l.insertAt(0, 1);
+    l.insertAt(1, 2);
+//    Iterator iterator = new Iterator();
+//    iterator.itorator(l);
+    System.out.println(l.size());
+
+//    System.out.println(iterator.hasNext());
+//    System.out.println(iterator.next());
+//    System.out.println(iterator.next());
+//    iterator.insert(1);
+//    System.out.println(iterator.hasNext());
+//    System.out.println(iterator.next());
+    l.removeAt(1);
+    System.out.println(l.size());
+
+  //  System.out.println(l.size());
+
+//    System.out.println(l.first.el);
+//    System.out.println(l.first.next.el);
+//    System.out.println(l.first.next.next.el);
+//    System.out.print(l.size());
+//    Iterator newIterator = new Iterator();
+//    newIterator.itorator(l);
+//    newIterator.remove();
   }
 }
