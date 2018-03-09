@@ -307,8 +307,8 @@ public void insertBST(Item i) {
     list.add(5);
     list.add(6);
     list.add(7);
-    BuildDFS(list);
-//    t.exampleTree();
+//    BuildDFS(list);
+    t.exampleTree();
 //    System.out.println(t.size());
 //    t.printBFS();
 ////    System.out.println(t.printBFS());
